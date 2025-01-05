@@ -1,5 +1,4 @@
-//It looks gross since I didn't know what I could and couldn't change. I believe this format answers all questions 
-//Otherwise I would've rearranged the parts and exercises into their own array 
+//up to 1.5
 const Header = (props) => {
   return(
     <h1>
@@ -38,28 +37,29 @@ const Total = (props) => {
 }
 
 const App = () => {
-  const course = 'Half Stack app development'
-  const parts = [
-    {
-      name: 'Fundamentals of react',
-      exercises: 10
-    }, 
-    {
-      name: 'Using props to pass data',
-      exercises: 7
-    }, 
-    {
-      name: 'State of a component',
-      exercises: 14
-    },
-  ]
-
+  const course = {
+    name: 'Half Stack app development',
+    parts: [
+      {
+        name: 'Fundamentals of react',
+        exercises: 10
+      }, 
+      {
+        name: 'Using props to pass data',
+        exercises: 7
+      }, 
+      {
+        name: 'State of a component',
+        exercises: 14
+      },
+    ]
+  }
   return(
     <div>
-      <Header course={course}/>
-      <Content parts={parts}/>
+      <Header course={course.name}/>
+      <Content parts={course.parts}/>
       
-      <Total parts={parts}/>
+      <Total parts={course.parts}/>
     </div>
     
   )
