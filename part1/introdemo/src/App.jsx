@@ -3,31 +3,50 @@ import { useState } from "react"
 const Display = ({counter}) => <div>{counter}</div>
 
 
-const Button = ({onSmash,text}) => <button onClick={onSmash}>{text}</button>
+const Button = ({onSmash,text}) => {
+  console.log(onSmash,text)
+  return(
+    <button onClick={onSmash}>{text}</button>
+  )
+}
 
-
-const App = (props) => {
-  const [counter, setCounter ] = useState(-1)
-  console.log('rendering with counter value', counter)
-  const increaseBy1 = () => {
-    console.log('up counter val', counter)
-    setCounter(counter+1)
+const History = (props) => {
+  
+  if(props.allClicks.length === 0){
+    return(
+      <div>
+        the app is used by pressing buttons
+      </div>
+    )
   }
-  const decreaseBy1 = () => {
-    console.log('down counter val', counter)
-    setCounter(counter-1)
-  }
-  const set0 = () => {
-    console.log('zeroing', counter)
-    setCounter(0)
-  }
-
   return(
     <div>
-      <Display counter={counter}/>
-      <Button onSmash={increaseBy1} text='ploos'/>
-      <Button onSmash={decreaseBy1} text='minoos'/>
-      <Button onSmash={set0} text='zeroo'/>
+      button press history: {props.allClicks.join("-")}
+    </div>
+  )
+}
+
+
+const App = () => {
+  const [value, setValue] = useState(10)
+
+  const handleClick = (text, eatshit) => () => {
+    console.log(text)
+    setValue(eatshit)
+  }
+
+  const handleClick2 = () => {
+    
+    setValue(value+35)
+  }
+
+  return (
+    <div>
+      
+      <Button onSmash={() => setValue(1000)} text={"bababooey"}
+      />
+      <button onClick = {handleClick2}>jump back to zero buddy</button>
+      <Display counter={value}/>
     </div>
   )
 }
