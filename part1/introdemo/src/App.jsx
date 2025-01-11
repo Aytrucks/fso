@@ -4,7 +4,7 @@ const Display = ({counter}) => <div>{counter}</div>
 
 
 const Button = ({onSmash,text}) => {
-  console.log(onSmash,text)
+  
   return(
     <button onClick={onSmash}>{text}</button>
   )
@@ -43,8 +43,9 @@ const App = () => {
   return (
     <div>
       
-      <Button onSmash={() => setValue(1000)} text={"bababooey"}
-      />
+      <Button onSmash={() => setValue(1000)} text={"bababooey"}/>
+      <Button onSmash={() => setValue(0)} text={"bababooey"}/>
+      <Button onSmash={() => setValue(value + 10)} text={"bababooey"}/>
       <button onClick = {handleClick2}>jump back to zero buddy</button>
       <Display counter={value}/>
     </div>
