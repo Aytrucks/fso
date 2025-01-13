@@ -10,7 +10,10 @@ const Button = ({click,text}) => {
 
 const StatLine = (props) => {
   return(
-    <tr>{props.text}: {props.value}</tr>
+    <tr>
+      <td>{props.text}:</td> 
+      <td>{props.value}</td>
+    </tr>
   )
 }
 
@@ -29,16 +32,14 @@ const Statistics = ({good,mid,ass,count}) => {
           <StatLine text={"Goodie"} value={good}/>
           <StatLine text={"Middie"} value={mid}/>
           <StatLine text={"Assie"} value={ass}/>
-          <tr>Total: {count}</tr>
+          <StatLine text={"Total"} value={count}/>
+          <StatLine text={"Goodie%"} value={good/count}/>
+          <StatLine text={"Middie%"} value={mid/count}/>
+          <StatLine text={"Assie%"} value={ass/count}/>
+          <StatLine text={"Avg"} value={((good*1) + (mid*0) + (ass*(-1))) / count}/>
+
         </tbody>
       </table>
-      // <h2>The Percentages</h2>
-      // <ul style={{color:"blueviolet"}}>
-      //   <li>Good: {good/count}%</li>
-      //   <li>Mid: {mid/count}%</li>
-      //   <li>Ass: {ass/count}%</li>
-      //   <li>Average: {((good*1) + (mid*0) + (ass*(-1))) / count}</li>
-      // </ul>
       
     )
   }
