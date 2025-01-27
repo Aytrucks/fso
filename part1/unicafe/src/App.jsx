@@ -12,7 +12,7 @@ const StatLine = (props) => {
   return(
     <tr>
       <td>{props.text}:</td> 
-      <td>{props.value}</td>
+      <td>{props.value}{props.endText}</td>
     </tr>
   )
 }
@@ -36,7 +36,7 @@ const Statistics = ({good,mid,ass,count}) => {
           <StatLine text={"Goodie%"} value={good/count}/>
           <StatLine text={"Middie%"} value={mid/count}/>
           <StatLine text={"Assie%"} value={ass/count}/>
-          <StatLine text={"Avg"} value={((good*1) + (mid*0) + (ass*(-1))) / count}/>
+          <StatLine text={"Avg"} value={((good*1) + (mid*0) + (ass*(-1))) / count} endText={"%"}/>
 
         </tbody>
       </table>
