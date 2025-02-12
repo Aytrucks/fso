@@ -1,71 +1,53 @@
-//up to 1.5
-const Header = (props) => {
+const Course = (props) => {
+  const sum = props.course.parts.reduce(
+    (accumulator, currentValue) => accumulator + currentValue.exercises,
+    0
+  );
   return(
+  <div>  
     <h1>
-      This Course is {props.course}
+      {props.course.name}
     </h1>
-  )
-}
-
-const Part = (props) => {
-  console.log(props)
-  return(
-    <p>
-      {props.partie} {props.exercise}
-    </p>
-  )
-}
-
-const Content = (props) => {
-  return(
-    <div>
-      <Part partie={props.parts[0].name} exercise={props.parts[0].exercises}/>
-      <Part partie={props.parts[1].name} exercise={props.parts[1].exercises}/>
-      <Part partie={props.parts[2].name} exercise={props.parts[2].exercises}/>
-      
-    </div>
-  )
-}
-
-const Total = (props) => {
-  console.log(props)
-  return(
-  <p>
-    Number of exercises is {props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises}
-  </p>
+    Course id is: {props.course.id}
+    <ul>
+      {
+        props.course.parts.map((part) => {
+          
+          return <li key={part.id}>{part.name}</li>
+        })
+        
+      }
+    </ul>
+    Sum is {sum}
+   </div>
   )
 }
 
 const App = () => {
   const course = {
-    name: 'Half Stack app development',
+    id: 1,
+    name: 'Half Stack application development',
     parts: [
       {
-        name: 'Fundamentals of react',
-        exercises: 10
-      }, 
+        name: 'Fundamentals of React',
+        exercises: 10,
+        id: 1
+      },
       {
         name: 'Using props to pass data',
-        exercises: 7
-      }, 
+        exercises: 7,
+        id: 2
+      },
       {
         name: 'State of a component',
-        exercises: 14
-      },
+        exercises: 14,
+        id: 3
+      }
     ]
   }
 
-
-  
-  return(
-    <div>
-      <Header course={course.name}/>
-      <Content parts={course.parts}/>
-      
-      <Total parts={course.parts}/>
-    </div>
-    
-  )
+  return <Course course={course} />
 }
 
 export default App
+
