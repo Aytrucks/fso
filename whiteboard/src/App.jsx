@@ -6,7 +6,7 @@ const App = (props) => {
   //setX is a function that you pass the value of what you want X to be.
   const [notes,setNotes] = useState(props.notes)
   const [newNote, setNewNote] = useState("...hey bb,")
-  const [showAll, setShowAll] = useState(false)
+  const [showAll, setShowAll] = useState(true)
 
   const addNote = (event) => {
     //prevents page from reloading
@@ -21,8 +21,8 @@ const App = (props) => {
   }
 
   const handleNoteChange = (event) => {
-    console.log(event.target.value)
-    setNewNote(event.target.value)
+    console.log("current change:",event.target.value)
+    setNewNote(event.target.value + "d")
   }
 
   const notesToShow = showAll ? notes : notes.filter(note => note.important)
