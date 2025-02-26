@@ -8,26 +8,23 @@ function App() {
     {name: "Jello Gray"}
   ])
   const [newname, setNewname] = useState("")
-  const printName = (ppl) => {
-    //console.log(ppl)
-    const names = (ppl.map(dude => {
-      return dude.name
-    })
-    )
-    //console.log(names)
-    console.log("3")
-    return names
-  }
 
   const addName = (event) => {
     event.preventDefault()
-    console.log("Adding name")
-    const newMonkey = {
-      name: newname
+    
+    if(persons.some(dude => dude.name === newname)){
+      console.log("Fuck you")
     }
-    console.log("1")
-    setPersons(persons.concat(newMonkey))
-    console.log("2")
+    else{
+      console.log("Adding name")
+      //window.alert("LMAO")
+      const newMonkey = {
+        name: newname
+      }
+      console.log("1")
+      setPersons(persons.concat(newMonkey))
+      console.log("2")
+    }
   }
 
   const handleNewMonkey = (event) => {
