@@ -13,6 +13,8 @@ const Button = ({func,text}) => {
 const BestAnecdote = (props) =>{
   let max = -1;
   let maxIndex = -1;
+  console.log();
+  
   for(let i=0;i<props.anecdotes.length;i++){
     if(max < props.votes[i]){
       max = props.votes[i]
