@@ -1,10 +1,16 @@
 import { useState } from 'react'
 
-
-
 const Person = ({dude}) => <div><strong>Name:</strong> {dude.name}  <strong>Numero:</strong>{dude.number} {dude.id}</div>
 
-
+const FilterPerson = ({people, filter}) => {
+  //console.log(people)
+  //console.log(filter)
+  const fPersons = people.filter((dude) =>{
+    return (dude.name.toLowerCase()).includes(filter.toLowerCase())
+  })
+  //console.log(fPersons)
+  return fPersons.map((dude) => <Person dude={dude}/>)
+}
 
 function App() {
   const testStr = "Hello World"
@@ -61,9 +67,13 @@ function App() {
       <h2>Monkey Directory App</h2>
 
       <div>whos ur favorite monkey<input value={filtName} onChange={handleFilter}/></div>
-      {(persons.filter((dude) => 
+      
+      {/*(persons.filter((dude) => 
         (dude.name.toLowerCase()).includes(filtName.toLowerCase()))).map((dude) => 
-        <Person dude={dude}/>)}
+        <Person dude={dude}/>)
+        */}
+
+      <FilterPerson people={persons} filter={filtName}/>
 
       <h2>gmo monkey creation</h2>
       <form onSubmit={addName}>
