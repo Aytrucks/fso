@@ -9,7 +9,10 @@ const FilterPerson = ({people, filter}) => {
     return (dude.name.toLowerCase()).includes(filter.toLowerCase())
   })
   //console.log(fPersons)
-  return fPersons.map((dude) => <Person dude={dude}/>)
+  return <div>
+    {fPersons.map((dude) => <Person dude={dude}/>)}
+  </div>
+  
 }
 
 function App() {
