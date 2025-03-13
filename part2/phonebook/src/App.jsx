@@ -1,6 +1,17 @@
 import { useState } from 'react'
 
-const Person = ({dude}) => <div><strong>Name:</strong> {dude.name}  <strong>Numero:</strong>{dude.number} {dude.id}</div>
+const Person = ({dude}) => {
+
+  return <div><strong>Name:</strong> {dude.name}  <strong>Numero:</strong>{dude.number} {dude.id}</div>
+}
+
+const MonkeyList = ({dudes}) => {
+  return (
+    dudes.map((dude) => {
+      <Person dude={dude} key={dude.id}/>
+    })
+  )
+}
 
 const FilterPerson = ({people, filter}) => {
   //console.log(people)
@@ -13,6 +24,17 @@ const FilterPerson = ({people, filter}) => {
     {fPersons.map((dude) => <Person dude={dude}/>)}
   </div>
   
+}
+
+const FilterUI = ({filtName, onChange, people}) => {
+
+  return (
+    <div>
+      Who's your favorite monkey
+      <input value = {filtName} onChange={onChange}/>
+      <FilterPerson people={people} filter={filtName}/>
+    </div>
+  )
 }
 
 const MakeMonkey = (props) => {
@@ -80,15 +102,7 @@ function App() {
     <div>
       <h2>Monkey Directory App</h2>
 
-      <div>whos ur favorite monkey<input value={filtName} onChange={handleFilter}/></div>
-      
-      {/*(persons.filter((dude) => 
-        (dude.name.toLowerCase()).includes(filtName.toLowerCase()))).map((dude) => 
-        <Person dude={dude}/>)
-        */}
-
-      <FilterPerson people={persons} filter={filtName}/>
-
+      <FilterUI people={persons} filtName={filtName} onChange={handleFilter}/>
       <h2>gmo monkey creation</h2>
       {/* <form onSubmit={addName}>
         <div>ur monkey name:<input value={newname} onChange={handleNewMonkey}/></div>
@@ -98,9 +112,7 @@ function App() {
       </form> */}
       <MakeMonkey addName={addName} newname={newname} handleNewMonkey={handleNewMonkey} newNum={newNum} handleNewNumber={handleNewNumber}/>
       <h2>phone numbers of monkeys</h2>
-      {persons.map((dude) => 
-        <Person dude={dude} key={dude.id}/>
-      )}
+      <MonkeyList dudes={persons}/>
     </div>
   )
 }
