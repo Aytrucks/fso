@@ -15,6 +15,15 @@ const FilterPerson = ({people, filter}) => {
   
 }
 
+const MakeMonkey = (props) => {
+  return <form onSubmit={props.addName}>
+  <div>ur monkey name:<input value={props.newname} onChange={props.handleNewMonkey}/></div>
+  <div>ur monkeys number: <input value={props.newNum} onChange={props.handleNewNumber}/></div>
+  
+  <div><button type='submit'>add ape name</button></div>
+</form>
+}
+
 function App() {
   const testStr = "Hello World"
   const [persons, setPersons] = useState([
@@ -64,6 +73,8 @@ function App() {
     setFiltName(event.target.value)
   }
 
+  
+
   //console.log(persons.map(dude => dude.name))
   return(
     <div>
@@ -79,12 +90,13 @@ function App() {
       <FilterPerson people={persons} filter={filtName}/>
 
       <h2>gmo monkey creation</h2>
-      <form onSubmit={addName}>
+      {/* <form onSubmit={addName}>
         <div>ur monkey name:<input value={newname} onChange={handleNewMonkey}/></div>
         <div>ur monkeys number: <input value={newNum} onChange={handleNewNumber}/></div>
         
         <div><button type='submit'>add ape name</button></div>
-      </form>
+      </form> */}
+      <MakeMonkey addName={addName} newname={newname} handleNewMonkey={handleNewMonkey} newNum={newNum} handleNewNumber={handleNewNumber}/>
       <h2>phone numbers of monkeys</h2>
       {persons.map((dude) => 
         <Person dude={dude} key={dude.id}/>
