@@ -34,8 +34,8 @@ const App = () => {
   }
 
   const handleNoteChange = (event) => {
-    console.log(event.target.value)
-    setNewNote(event.target.value)
+    console.log("current change:",event.target.value)
+    setNewNote(event.target.value + "d")
   }
 
   const notesToShow = showAll ? notes : notes.filter(note => note.important)
