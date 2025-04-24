@@ -29,23 +29,36 @@ const App = () => {
       important: Math.random() < 0.5,
       id: String(notes.length+1),
     }
-    setNotes(notes.concat(noteObject))
-    setNewNote("sweaty ballsacks")
+    axios
+    .post('http://localhost:3001/notes', noteObject)
+    .then(response => {
+      console.log("response is", response)
+      setNotes(notes.concat(response.data))
+      setNewNote("sweaty ballsacks")
+    })
+    
   }
 
   const handleNoteChange = (event) => {
     console.log("current change:",event.target.value)
-    setNewNote(event.target.value + "d")
+    setNewNote(event.target.value)
   }
 
   const notesToShow = showAll ? notes : notes.filter(note => note.important)
+
+  const toggleImportanceOf = (id) =>{
+    console.log('importance of ' + id + ' needs to be tog') 
+  }
   
   return (
     <div>
       <h1>Notes</h1>
       <ul>
         {notesToShow.map(note => 
-        <Note note={note} key={note.id}/>
+        <Note note={note} 
+        key={note.id}
+        toggleImportance={()=>toggleImportanceOf(note.id)}
+        />
         )}
       </ul>
 
