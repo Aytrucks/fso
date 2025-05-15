@@ -10,8 +10,8 @@ const Course = (props) => {
       <ul>
         {
           props.course.parts.map((part) => {
-            
-            return <li key={part.id}>{part.name}</li>
+            console.log(part)
+            return <li key={part.id}>{part.name} ({part.exercises})</li>
           })
           
         }
