@@ -12,7 +12,7 @@ const App = () => {
   const hook = () => {
     console.log('effect')
     axios
-    .get("http://localhost:3001/notes")
+    .get("http://localhost:3002/notes")
     .then(response => {
       console.log('promise achieved')
       setNotes(response.data)
@@ -30,7 +30,7 @@ const App = () => {
       id: String(notes.length+1),
     }
     axios
-    .post('http://localhost:3001/notes', noteObject)
+    .post('http://localhost:3002/notes', noteObject)
     .then(response => {
       console.log("response is", response)
       setNotes(notes.concat(response.data))
