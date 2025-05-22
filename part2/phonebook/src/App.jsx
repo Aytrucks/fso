@@ -61,16 +61,17 @@ function App() {
   const [idMonk, setId] = useState(5)
   const [filtName, setFiltName] = useState("")
 
-  useEffect(() => {
-    console.log("Begin the effecto")
+  const hook = () =>{
+    console.log("begin effecto")
     axios.get("http://localhost:3001/persons")
     .then(response => {
-      console.log("promise acquired")
+      console.log("Promise Fulfilled?")
       setPersons(persons.concat(response.data))
     })
-  },[])
+  }
+  useEffect(hook, [])
+  console.log('render', persons.length, 'people')
 
-  const filteredPpl = persons.filter((dude) => dude.name === "Jello Gray")
 
   const addName = (event) => {
     event.preventDefault()
