@@ -63,7 +63,7 @@ function App() {
 
   const hook = () =>{
     console.log("begin effecto")
-    axios.get("http://localhost:3001/persons")
+    axios.get("http://localhost:3001/persons/3")
     .then(response => {
       console.log("Promise Fulfilled?")
       setPersons(persons.concat(response.data))

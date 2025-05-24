@@ -27,7 +27,7 @@ const App = () => {
     const noteObject = {
       content: newNote,
       important: Math.random() < 0.5,
-      id: String(notes.length+1),
+      
     }
     axios
     .post('http://localhost:3002/notes', noteObject)
