@@ -48,6 +48,17 @@ const App = () => {
 
   const toggleImportanceOf = (id) =>{
     console.log('importance of ' + id + ' needs to be tog') 
+    const dbnote_url = `http://localhost:3002/notes/${id}`
+    const initial_note = notes.find((note) => note.id === id)
+    const toggled_note = {
+      ...initial_note, 
+      important: !initial_note.important
+    }
+    axios
+    .put(dbnote_url, toggled_note)
+    .then(response => {
+      setNotes(notes.map(note => note.id === id ? response.data : note))
+    })
   }
   
   return (
