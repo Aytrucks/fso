@@ -28,19 +28,29 @@ function App() {
   const addName = (event) => {
     event.preventDefault()
 
-    if(persons.some(dude => dude.name === newname)){
-      console.log("Fuck you")
-      window.alert(`"${newname}" is already on the list bruh cant you read??`)
+    const newMonkey = () =>{
+      const monkey = {
+        name: newname,
+        number: newNum,
+      }
+      return monkey
+    }
+
+    const preexisting = persons.find(dude => dude.name === newname)
+    if(preexisting){
+      if(window.confirm(`"${newname}" is already on the list. Do you want to change the phone number?`)){
+        console.log(preexisting.id)
+        telecom.updateNumber(newMonkey(), preexisting.id).then(newMonkey => {
+          setPersons(persons.map((person) => {
+            return person.id === newMonkey.id ? newMonkey : person
+          }))
+        })
+      }
     }
     else{
       console.log("Adding name")
       //window.alert("LMAO")
-      const newMonkey = {
-        name: newname,
-        number: newNum,
-
-      }
-      telecom.addPerson(newMonkey).then((monkey) => {
+      telecom.addPerson(newMonkey()).then((monkey) => {
         setPersons(persons.concat(monkey))
       })
       
