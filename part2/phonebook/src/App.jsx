@@ -36,6 +36,7 @@ const FilterUI = ({filtName, onChange, people}) => {
   )
 }
 
+//adds a monkey to the directory, taking in the name and number. We pass in 2 different callbacks to handle inputs
 const MakeMonkey = (props) => {
   return <form onSubmit={props.addName}>
   <div>ur monkey name:<input value={props.newname} onChange={props.handleNewMonkey}/></div>
@@ -50,7 +51,7 @@ function App() {
   const [persons, setPersons] = useState([])
   const [newname, setNewname] = useState("")
   const [newNum, setNewNum] = useState("")
-  const [idMonk, setId] = useState(5)
+
   const [filtName, setFiltName] = useState("")
 
   const hook = () =>{
@@ -78,25 +79,26 @@ function App() {
       const newMonkey = {
         name: newname,
         number: newNum,
-        id: idMonk
+
       }
       
       setPersons(persons.concat(newMonkey))
       
-      setId(idMonk + 1)
+
     }
   }
 
+  //set the name
   const handleNewMonkey = (event) => {
-    console.log(event.target.value)
     setNewname(event.target.value)
   }
 
+  //set the phone number
   const handleNewNumber = (event) =>{
-    console.log(event.target.value)
     setNewNum(event.target.value)
   }
 
+  //set the filter
   const handleFilter = (event) =>{
     setFiltName(event.target.value)
   }
