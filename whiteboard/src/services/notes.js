@@ -3,17 +3,33 @@ import axios from "axios";
 //url for notes
 const url = "http://localhost:3002/notes/";
 
+//handles defining axios methods in this library and exports methods
 const getAll = () => {
-  return axios.get(url);
+  const request = axios.get(url);
+  const FAKE = {
+    id: 10000,
+    content: "Fake note",
+    important: true,
+  };
+  return request
+    .then((output) => {
+      return output.data.concat(FAKE);
+    })
+
+    .catch((error) => {
+      console.log("damn bruh wtf happened");
+    });
 };
 
 const createNote = (newNote) => {
-  return axios.post(url, newNote);
+  const request = axios.post(url, newNote);
+  return request.then((response) => response.data);
 };
 
 const update = (id, newNote) => {
   //find url of note to be updated
-  return axios.put(`${url}/${id}`, newNote);
+  const request = axios.put(`${url}${id}`, newNote);
+  return request.then((response) => response.data);
 };
 
 export default {
