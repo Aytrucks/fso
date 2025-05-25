@@ -4,7 +4,7 @@ const Person = ({dude}) => {
   if(dude.number === ""){
     dude.number = "NUMBER NOT AVAILABLE"
   }
-  return <div><strong>Name:</strong> {dude.name}  <strong>Numero:</strong>{dude.number} <strong>ID: </strong>{dude.id}</div>
+  return <div><strong>Name: </strong> {dude.name} 📞 <strong>Numero: </strong>{dude.number} <strong>ID: </strong>{dude.id}</div>
 }
 
 //Filters directory of people based on lowercasing the entire name and observing if the typed substring is within the name

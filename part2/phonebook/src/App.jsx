@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import telecom from './services/phonebook'
 import { Person, FilterPeople, FilterUI, MakeMonkey} from './components/Persons'
 
@@ -14,16 +13,17 @@ function App() {
 
   const hook = () =>{
     console.log("begin effecto")
-    axios.get("http://localhost:3001/persons")
-    .then(response => {
+    telecom.getAll()
+    .then(db_persons => {
       console.log("Promise Fulfilled?")
-      setPersons((response.data))
+      setPersons((db_persons))
     })
   }
   useEffect(hook, [])
   console.log('render', persons.length, 'people')
 
 
+  //use axios to update 
   const addName = (event) => {
     event.preventDefault()
 
@@ -39,8 +39,10 @@ function App() {
         number: newNum,
 
       }
+      telecom.addPerson(newMonkey).then((monkey) => {
+        setPersons(persons.concat(monkey))
+      })
       
-      setPersons(persons.concat(newMonkey))
       
 
     }
