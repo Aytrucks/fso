@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
+//simply renders name, number, and ID. 
 const Person = ({dude}) => {
   
   if(dude.number === ""){
@@ -9,15 +10,8 @@ const Person = ({dude}) => {
   return <div><strong>Name:</strong> {dude.name}  <strong>Numero:</strong>{dude.number} <strong>ID: </strong>{dude.id}</div>
 }
 
-const MonkeyList = ({dudes}) => {
-  return (
-    dudes.map((dude) => {
-      <Person dude={dude} key={dude.id}/>
-    })
-  )
-}
-
-const FilterPerson = ({people, filter}) => {
+//Filters directory of people based on lowercasing the entire name and observing if the typed substring is within the name
+const FilterPeople = ({people, filter}) => {
   //console.log(people)
   //console.log(filter)
   const fPersons = people.filter((dude) =>{
@@ -30,13 +24,14 @@ const FilterPerson = ({people, filter}) => {
   
 }
 
+//UI to handle filtering. Contains the input box for typing filter and displays filtered names
 const FilterUI = ({filtName, onChange, people}) => {
 
   return (
     <div>
       Who's your favorite monkey
       <input value = {filtName} onChange={onChange}/>
-      <FilterPerson people={people} filter={filtName}/>
+      <FilterPeople people={people} filter={filtName}/>
     </div>
   )
 }
@@ -52,10 +47,7 @@ const MakeMonkey = (props) => {
 
 function App() {
   const testStr = "Hello World"
-  const [persons, setPersons] = useState([
-    {name: "Jello Gray", number:"480-999-9999", id:-1},
-    {name: "The Rock", number:"123-019-fukc", id:0},
-  ])
+  const [persons, setPersons] = useState([])
   const [newname, setNewname] = useState("")
   const [newNum, setNewNum] = useState("")
   const [idMonk, setId] = useState(5)
@@ -63,10 +55,10 @@ function App() {
 
   const hook = () =>{
     console.log("begin effecto")
-    axios.get("http://localhost:3001/persons/3")
+    axios.get("http://localhost:3001/persons")
     .then(response => {
       console.log("Promise Fulfilled?")
-      setPersons(persons.concat(response.data))
+      setPersons((response.data))
     })
   }
   useEffect(hook, [])
@@ -88,9 +80,9 @@ function App() {
         number: newNum,
         id: idMonk
       }
-      console.log("1")
+      
       setPersons(persons.concat(newMonkey))
-      console.log("2")
+      
       setId(idMonk + 1)
     }
   }
@@ -120,8 +112,8 @@ function App() {
       <h2>gmo monkey creation</h2>
 
       <MakeMonkey addName={addName} newname={newname} handleNewMonkey={handleNewMonkey} newNum={newNum} handleNewNumber={handleNewNumber}/>
-      <h2>phone numbers of monkeys</h2>
-      <MonkeyList dudes={persons}/>
+      
+      
     </div>
   )
 }
