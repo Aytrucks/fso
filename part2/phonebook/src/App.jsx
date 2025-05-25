@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import telecom from './services/phonebook'
-import { Person, FilterPeople, FilterUI, MakeMonkey} from './components/Persons'
+import { FilterUI, MakeMonkey} from './components/Persons'
 
 
 function App() {
@@ -11,8 +11,9 @@ function App() {
 
   const [filtName, setFiltName] = useState("")
 
+  //load in data from server
   const hook = () =>{
-    console.log("begin effecto")
+    //console.log("begin effecto")
     telecom.getAll()
     .then(db_persons => {
       console.log("Promise Fulfilled?")
@@ -20,10 +21,10 @@ function App() {
     })
   }
   useEffect(hook, [])
-  console.log('render', persons.length, 'people')
+  //console.log('render', persons.length, 'people')
 
 
-  //use axios to update 
+  //use axios to update the new monkeys to the server
   const addName = (event) => {
     event.preventDefault()
 
@@ -45,6 +46,23 @@ function App() {
       
       
 
+    }
+  }
+
+  //Delete name from server + frontend
+  const deleteMonkey = (name, id) => {
+    console.log(id)
+    if(confirm(`Delete ${name}?`, id)){
+      console.log("Deleted")
+      telecom.deletePerson(id).then(() => {
+        telecom.getAll().then(remainingMonkeys => {
+          setPersons(remainingMonkeys)
+        })
+      })
+      
+    }
+    else{
+      console.log("Not deleted")
     }
   }
 
@@ -70,7 +88,7 @@ function App() {
     <div>
       <h2>Monkey Directory App</h2>
 
-      <FilterUI people={persons} filtName={filtName} onChange={handleFilter}/>
+      <FilterUI people={persons} filtName={filtName} onChange={handleFilter} onDelete={deleteMonkey}/>
       <h2>gmo monkey creation</h2>
 
       <MakeMonkey addName={addName} newname={newname} handleNewMonkey={handleNewMonkey} newNum={newNum} handleNewNumber={handleNewNumber}/>

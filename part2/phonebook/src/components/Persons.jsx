@@ -1,14 +1,15 @@
 //simply renders name, number, and ID. 
-const Person = ({dude}) => {
+const Person = ({dude, onDelete}) => {
   
   if(dude.number === ""){
     dude.number = "NUMBER NOT AVAILABLE"
   }
-  return <div><strong>Name: </strong> {dude.name} 📞 <strong>Numero: </strong>{dude.number} <strong>ID: </strong>{dude.id}</div>
+  
+  return <div><strong>Name: </strong> {dude.name} 📞 <strong>Numero: </strong>{dude.number} <strong>ID: </strong>{dude.id} <button onClick={() => onDelete(dude.name, dude.id)}>Delete</button> </div>
 }
 
 //Filters directory of people based on lowercasing the entire name and observing if the typed substring is within the name
-const FilterPeople = ({people, filter}) => {
+const FilterPeople = ({people, filter, onDelete}) => {
   //console.log(people)
   //console.log(filter)
   const fPersons = people.filter((dude) =>{
@@ -16,19 +17,19 @@ const FilterPeople = ({people, filter}) => {
   })
   //console.log(fPersons)
   return <div>
-    {fPersons.map((dude) => <Person dude={dude} key={dude.id}/>)}
+    {fPersons.map((dude) => <Person dude={dude} onDelete= {onDelete} key={dude.id}/>)}
   </div>
   
 }
 
 //UI to handle filtering. Contains the input box for typing filter and displays filtered names
-const FilterUI = ({filtName, onChange, people}) => {
+const FilterUI = ({filtName, onChange, people, onDelete}) => {
 
   return (
     <div>
       Who's your favorite monkey
       <input value = {filtName} onChange={onChange}/>
-      <FilterPeople people={people} filter={filtName}/>
+      <FilterPeople people={people} filter={filtName} onDelete={onDelete}/>
     </div>
   )
 }
