@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import telecom from './services/phonebook'
 import { FilterUI, MakeMonkey} from './components/Persons'
+import Notification from './components/Notification'
 
 
 function App() {
@@ -8,6 +9,8 @@ function App() {
   const [persons, setPersons] = useState([])
   const [newname, setNewname] = useState("")
   const [newNum, setNewNum] = useState("")
+  const [message, setMessage] = useState(null)
+  const [type, setType] = useState('login')
 
   const [filtName, setFiltName] = useState("")
 
@@ -44,6 +47,15 @@ function App() {
           setPersons(persons.map((person) => {
             return person.id === newMonkey.id ? newMonkey : person
           }))
+        }).catch((error) => {
+          setMessage(`Turns out "${preexisting.name}" isn't here anymore`)
+          setType('error')
+          setPersons(persons.filter((monkey) => {
+            return monkey.id !== preexisting.id
+          }))
+          setTimeout(() => {
+          setMessage(null)
+        }, 5000)
         })
       }
     }
@@ -52,6 +64,11 @@ function App() {
       //window.alert("LMAO")
       telecom.addPerson(newMonkey()).then((monkey) => {
         setPersons(persons.concat(monkey))
+        setMessage(`Successfully added ${monkey.name} to the directory!`)
+        setType('login')
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
       })
       
       
@@ -97,7 +114,7 @@ function App() {
   return(
     <div>
       <h2>Monkey Directory App</h2>
-
+      <Notification message = {message} type = {type} />
       <FilterUI people={persons} filtName={filtName} onChange={handleFilter} onDelete={deleteMonkey}/>
       <h2>gmo monkey creation</h2>
 

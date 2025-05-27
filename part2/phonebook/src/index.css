@@ -1,0 +1,19 @@
+.login{
+    color:rgb(71, 173, 79);
+    background: rgb(17, 61, 17);
+    font-size: 18px;
+    border-style: dashed;
+    border-radius: 15px;
+    padding: 12px;
+    margin-bottom: 12px;
+}
+
+.error{
+    color:rgb(173, 78, 71);
+    background: rgb(61, 17, 39);
+    font-size: 18px;
+    border-style: dashed;
+    border-radius: 15px;
+    padding: 12px;
+    margin-bottom: 12px;
+}

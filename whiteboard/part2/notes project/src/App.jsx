@@ -7,7 +7,7 @@ import noteHelp from './services/notes'
 const App = () => {
   
   //setX is a function that you pass the value of what you want X to be.
-  const [notes,setNotes] = useState([])
+  const [notes,setNotes] = useState(null)
   const [newNote, setNewNote] = useState("...hey bb,")
   const [showAll, setShowAll] = useState(true)
   const [errorMsg, setErrorMsg] = useState(null)
@@ -80,6 +80,10 @@ const App = () => {
 
   // Proof of rendering
   console.log("teehee")
+
+  if(!notes){
+    return null
+  }
 
   //return the HTML and components
   return (
