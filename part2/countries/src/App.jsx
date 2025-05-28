@@ -4,19 +4,20 @@ import FindCountry from './components/FindCountry'
 
 function App() {
   const [countries, setCountries] = useState([])
-  const [name, setName] = useState("TEST")
-
+  const [name, setName] = useState("")
+  const [countriesInfo, setCountriesInfo] = useState([])
   //request to get all data about countries and then specifically only include the names
   const hook = () => {
     const request = axios.get('https://studies.cs.helsinki.fi/restcountries/api/all').then(response => {
-      let totalCountries = [];
+      let totalCountries = []
+      let totalCountriesName = [];
       response.data.forEach((thing) => {
         //console.log(thing)
-        
-        totalCountries = totalCountries.concat(thing.name.common)
+        totalCountries = totalCountries.concat(thing)
+        totalCountriesName = totalCountriesName.concat(thing.name.common)
       })
-      //console.log(totalCountries)
-      setCountries(totalCountries)
+      setCountriesInfo(totalCountries)
+      setCountries(totalCountriesName)
     })
   }
   const handleFilter = (event) =>{
@@ -24,12 +25,12 @@ function App() {
   }
 
   useEffect(hook, [])
-  //console.log(countries)
+  
 
   return (
     
     <div>
-      <FindCountry countries={countries} filterName = {name} onChange={handleFilter}/>
+      <FindCountry countries={countries} countriesFull={countriesInfo} filterName = {name} onChange={handleFilter}/>
       
     </div>
   )
