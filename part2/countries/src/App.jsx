@@ -23,20 +23,17 @@ function App() {
       setCountries(totalCountriesName)
     })
   }
+  console.log(countriesInfo)
   const handleFilter = (event) =>{
     setName(event.target.value)
     setFocusedCountry(null)
   }
   const clickCountry = (country) =>{
     //Country just returns the name for now
-    console.log(totalCountries)
-
     setFocusedCountry(country)
-
   }
 
   useEffect(hook, [])
-  
 
   return (
     
