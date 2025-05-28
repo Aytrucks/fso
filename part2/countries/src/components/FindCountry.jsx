@@ -8,7 +8,7 @@ const FindCountry = (props) => {
         return country.toLowerCase().includes(props.filterName.toLowerCase())
     })
     let focusedCountry = null
-    //console.log(filteredCountries)
+    console.log(filteredCountries)
     //More than 10 countries
 
     if(filteredCountries.length > 10){
@@ -28,7 +28,7 @@ const FindCountry = (props) => {
         })
         }
         
-        console.log(focusedCountry)
+        //console.log(focusedCountry)
         const languages = []
         for(const property in focusedCountry.languages){
             console.log(focusedCountry.languages[property])
@@ -40,7 +40,7 @@ const FindCountry = (props) => {
         console.log(languages)
         
         return <div>
-            Filter by country name <input value={props.filterName} onChange={props.onChange}/>
+            Filter by country name <input value={props.filterName} onChange={() => props.onChange()}/>
             <h1>{filteredCountries[0]}</h1>
             <div>Capital: {focusedCountry.capital}</div>
             <div>Area: {focusedCountry.area}</div>
@@ -65,7 +65,7 @@ const FindCountry = (props) => {
         Filter by country name <input value={props.filterName} onChange={props.onChange}/>
         <ul>
          {filteredCountries.map((country) => {
-            return <li>{country} <button>Show</button> </li>
+            return <li>{country} <button onClick={() => props.onClick(country)}>Show</button> </li>
     })}
     </ul>
     </div>
