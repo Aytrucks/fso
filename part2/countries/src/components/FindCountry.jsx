@@ -1,8 +1,8 @@
 const FindCountry = (props) => {
     const countriesAllInfo = props.countriesFull
-    console.log(countriesAllInfo)
+    //console.log(countriesAllInfo)
     const countries = props.countries
-    //console.log(countries)
+    console.log(countries)
     let filteredCountries = countries.filter((country) => {
         //console.log(country.toLowerCase())
         return country.toLowerCase().includes(props.filterName.toLowerCase())
@@ -31,16 +31,12 @@ const FindCountry = (props) => {
         //console.log(focusedCountry)
         const languages = []
         for(const property in focusedCountry.languages){
-            console.log(focusedCountry.languages[property])
+            //console.log(focusedCountry.languages[property])
             languages.push([focusedCountry.languages[property]])
         }
-        languages.forEach((lang) => {
-            console.log(lang)
-        })
-        console.log(languages)
         
         return <div>
-            Filter by country name <input value={props.filterName} onChange={() => props.onChange()}/>
+            Filter by country name <input value={props.filterName} onChange={props.onChange}/>
             <h1>{filteredCountries[0]}</h1>
             <div>Capital: {focusedCountry.capital}</div>
             <div>Area: {focusedCountry.area}</div>

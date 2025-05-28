@@ -6,12 +6,15 @@ function App() {
   const [countries, setCountries] = useState([])
   const [name, setName] = useState("")
   const [countriesInfo, setCountriesInfo] = useState([])
-  const [focusedCountry, setFocusedCountry] = useState("")
+  const [clicked, setClicked] = useState(false)
+  const [proc, setProc] = useState(false)
+  //const [focusedCountry, setFocusedCountry] = useState("")
   //request to get all data about countries and then specifically only include the names
+  let totalCountries = []
+  let totalCountriesName = [];
   const hook = () => {
     const request = axios.get('https://studies.cs.helsinki.fi/restcountries/api/all').then(response => {
-      let totalCountries = []
-      let totalCountriesName = [];
+      
       response.data.forEach((thing) => {
         //console.log(thing)
         totalCountries = totalCountries.concat(thing)
@@ -23,20 +26,20 @@ function App() {
   }
   const handleFilter = (event) =>{
     setName(event.target.value)
+    if(clicked){
+      console.log()
+      setCountries(totalCountriesName)
+      setClicked(false)
+      setProc(!proc)
+    }
   }
   const clickCountry = (country) =>{
     console.log(country)
-    let returnedCountry = null
-    countriesInfo.forEach((countryInfo) =>{
-      if(countryInfo.name.common === country){
-        //console.log(true)
-        returnedCountry = countryInfo
-      }
-    })
-    console.log(returnedCountry)
+    setCountries([country])
+    setClicked(true)
   }
 
-  useEffect(hook, [])
+  useEffect(hook, [proc])
   
 
   return (
