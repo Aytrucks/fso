@@ -6,9 +6,8 @@ function App() {
   const [countries, setCountries] = useState([])
   const [name, setName] = useState("")
   const [countriesInfo, setCountriesInfo] = useState([])
-  const [clicked, setClicked] = useState(false)
-  const [proc, setProc] = useState(false)
-  //const [focusedCountry, setFocusedCountry] = useState("")
+
+  const [focusedCountry, setFocusedCountry] = useState(null)
   //request to get all data about countries and then specifically only include the names
   let totalCountries = []
   let totalCountriesName = [];
@@ -26,26 +25,23 @@ function App() {
   }
   const handleFilter = (event) =>{
     setName(event.target.value)
-    if(clicked){
-      console.log()
-      setCountries(totalCountriesName)
-      setClicked(false)
-      setProc(!proc)
-    }
+    setFocusedCountry(null)
   }
   const clickCountry = (country) =>{
-    console.log(country)
-    setCountries([country])
-    setClicked(true)
+    //Country just returns the name for now
+    console.log(totalCountries)
+
+    setFocusedCountry(country)
+
   }
 
-  useEffect(hook, [proc])
+  useEffect(hook, [])
   
 
   return (
     
     <div>
-      <FindCountry countries={countries} countriesFull={countriesInfo} filterName = {name} onChange={handleFilter} onClick={clickCountry}/>
+      <FindCountry countries={countries} countriesFull={countriesInfo} filterName = {name} onChange={handleFilter} onClick={clickCountry} focusedCountry = {focusedCountry}/>
     </div>
   )
 }
