@@ -2,12 +2,16 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import FindCountry from './components/FindCountry'
 
+const api_key = import.meta.env.VITE_SOME_KEY
+//console.log(api_key)
+
 function App() {
   const [countries, setCountries] = useState([])
   const [name, setName] = useState("")
   const [countriesInfo, setCountriesInfo] = useState([])
-
   const [focusedCountry, setFocusedCountry] = useState(null)
+  const [flag, setFlag] = useState(0)
+
   //request to get all data about countries and then specifically only include the names
   let totalCountries = []
   let totalCountriesName = [];
@@ -23,6 +27,13 @@ function App() {
       setCountries(totalCountriesName)
     })
   }
+  //test
+  const weatherHook = () =>{
+    axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${47}&lon=${13}&appid=${api_key}`).then(response => {
+      console.log(response.data)
+    })
+  }
+  //useEffect(weatherHook, [])
   console.log(countriesInfo)
   const handleFilter = (event) =>{
     setName(event.target.value)
@@ -34,11 +45,11 @@ function App() {
   }
 
   useEffect(hook, [])
-
   return (
-    
     <div>
-      <FindCountry countries={countries} countriesFull={countriesInfo} filterName = {name} onChange={handleFilter} onClick={clickCountry} focusedCountry = {focusedCountry}/>
+      <FindCountry countries={countries} countriesFull={countriesInfo} filterName = {name} 
+      onChange={handleFilter} onClick={clickCountry} focusedCountry = {focusedCountry}
+      />
     </div>
   )
 }

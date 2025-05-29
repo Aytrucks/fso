@@ -1,3 +1,5 @@
+import axios from "axios"
+
 const FindCountry = (props) => {
     const countriesAllInfo = props.countriesFull
     console.log(countriesAllInfo)
@@ -5,7 +7,11 @@ const FindCountry = (props) => {
     let filteredCountries = countries.filter((country) => {
         return country.toLowerCase().includes(props.filterName.toLowerCase())
     })
+    let focusedCountryName = props.focusedCountry
     let focusedCountry = null
+
+
+
     //More than 10 countries
     const renderFocused = (renderCountry) =>{
         if(!focusedCountry){
@@ -37,6 +43,7 @@ const FindCountry = (props) => {
             <div>
                 <img src={focusedCountry.flags.png}/>
             </div>
+            <h2>Weather Report</h2>
         </div>
     }
     if(filteredCountries.length > 10){
@@ -45,12 +52,12 @@ const FindCountry = (props) => {
             <div>Too many countries bro type a better filter</div>
         </div>
     }
-    else if(filteredCountries.length === 1 && !props.focusedCountry){
+    else if(filteredCountries.length === 1 && !focusedCountryName){
         //Identify which country we're working with
         return renderFocused(filteredCountries[0])
     }
-    else if(props.focusedCountry){
-        return renderFocused(props.focusedCountry)
+    else if(focusedCountryName){
+        return renderFocused(focusedCountryName)
     }
     else{
         return <div>
