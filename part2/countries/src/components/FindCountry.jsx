@@ -1,8 +1,10 @@
-import axios from "axios"
+import apisupport from "../services/apisupport"
+import { useEffect } from 'react'
 
+const api_key = import.meta.env.VITE_SOME_KEY
 const FindCountry = (props) => {
     const countriesAllInfo = props.countriesFull
-    console.log(countriesAllInfo)
+    //console.log(countriesAllInfo)
     const countries = props.countries
     let filteredCountries = countries.filter((country) => {
         return country.toLowerCase().includes(props.filterName.toLowerCase())
@@ -10,7 +12,16 @@ const FindCountry = (props) => {
     let focusedCountryName = props.focusedCountry
     let focusedCountry = null
 
-
+    const renderWeather = (focusedCountry) => {
+        useEffect(() => {
+            apisupport.getWeather(Math.ceil(focusedCountry.latlng[0]), Math.ceil(focusedCountry.latlng[1]), api_key).then(response => {
+                console.log(response)
+            })
+        }, [])
+        return <div>
+            {focusedCountry.name.common}
+        </div>
+    }
 
     //More than 10 countries
     const renderFocused = (renderCountry) =>{
@@ -44,6 +55,7 @@ const FindCountry = (props) => {
                 <img src={focusedCountry.flags.png}/>
             </div>
             <h2>Weather Report</h2>
+            <div>{renderWeather(focusedCountry)}</div>
         </div>
     }
     if(filteredCountries.length > 10){

@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import apisupport from './services/apisupport'
 import FindCountry from './components/FindCountry'
 
-const api_key = import.meta.env.VITE_SOME_KEY
 //console.log(api_key)
 
 function App() {
@@ -16,9 +15,9 @@ function App() {
   let totalCountries = []
   let totalCountriesName = [];
   const hook = () => {
-    const request = axios.get('https://studies.cs.helsinki.fi/restcountries/api/all').then(response => {
+    apisupport.getCountries().then(response => {
       
-      response.data.forEach((thing) => {
+      response.forEach((thing) => {
         //console.log(thing)
         totalCountries = totalCountries.concat(thing)
         totalCountriesName = totalCountriesName.concat(thing.name.common)
@@ -34,7 +33,7 @@ function App() {
     })
   }
   //useEffect(weatherHook, [])
-  console.log(countriesInfo)
+  
   const handleFilter = (event) =>{
     setName(event.target.value)
     setFocusedCountry(null)
