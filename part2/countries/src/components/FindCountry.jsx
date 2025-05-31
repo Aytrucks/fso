@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 const api_key = import.meta.env.VITE_SOME_KEY
 const FindCountry = (props) => {
     const countriesAllInfo = props.countriesFull
-    //console.log(countriesAllInfo)
+    console.log(countriesAllInfo)
     const countries = props.countries
     let filteredCountries = countries.filter((country) => {
         return country.toLowerCase().includes(props.filterName.toLowerCase())
@@ -13,13 +13,19 @@ const FindCountry = (props) => {
     let focusedCountry = null
 
     const renderWeather = (focusedCountry) => {
-        useEffect(() => {
-            apisupport.getWeather(Math.ceil(focusedCountry.latlng[0]), Math.ceil(focusedCountry.latlng[1]), api_key).then(response => {
+        let temperature = ""
+        const obtainWeather = () => {
+            apisupport.getWeather(Math.ceil(focusedCountry.capitalInfo.latlng[0]), Math.ceil(focusedCountry.capitalInfo.latlng[1]), api_key).then(response => {
                 console.log(response)
+                temperature = response.main.temp
             })
-        }, [])
+            console.log(temperature)
+        }
+        useEffect(obtainWeather, [])
+        console.log(temperature)
         return <div>
-            {focusedCountry.name.common}
+            
+            Temperature is {focusedCountry.name.common}
         </div>
     }
 
