@@ -3,7 +3,7 @@ import RenderWeather from "./Weather"
 //Component that returns input box to filter country name + displays <10 countries from filter + displays if only 1 country filtered or specifically selected
 const FindCountry = (props) => {
     const countriesAllInfo = props.countriesFull
-    //console.log(countriesAllInfo)
+    console.log(countriesAllInfo)
     const countries = props.countries
     let filteredCountries = countries.filter((country) => {
         return country.toLowerCase().includes(props.filterName.toLowerCase())
