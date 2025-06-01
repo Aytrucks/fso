@@ -1,7 +1,6 @@
-import apisupport from "../services/apisupport"
-import { useEffect } from 'react'
+import RenderWeather from "./Weather"
 
-const api_key = import.meta.env.VITE_SOME_KEY
+//Component that returns input box to filter country name + displays <10 countries from filter + displays if only 1 country filtered or specifically selected
 const FindCountry = (props) => {
     const countriesAllInfo = props.countriesFull
     //console.log(countriesAllInfo)
@@ -11,17 +10,6 @@ const FindCountry = (props) => {
     })
     let focusedCountryName = props.focusedCountry
     let focusedCountry = null
-
-    const renderWeather = (focusedCountry) => {
-        useEffect(() => {
-            apisupport.getWeather(Math.ceil(focusedCountry.latlng[0]), Math.ceil(focusedCountry.latlng[1]), api_key).then(response => {
-                console.log(response)
-            })
-        }, [])
-        return <div>
-            {focusedCountry.name.common}
-        </div>
-    }
 
     //More than 10 countries
     const renderFocused = (renderCountry) =>{
@@ -55,7 +43,7 @@ const FindCountry = (props) => {
                 <img src={focusedCountry.flags.png}/>
             </div>
             <h2>Weather Report</h2>
-            <div>{renderWeather(focusedCountry)}</div>
+            <RenderWeather focusedCountry={focusedCountry} />
         </div>
     }
     if(filteredCountries.length > 10){
