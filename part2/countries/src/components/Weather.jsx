@@ -6,6 +6,8 @@ const RenderWeather = (props) => {
     useEffect(() => {
         apisupport.getWeather((props.focusedCountry.capitalInfo.latlng[0]), (props.focusedCountry.capitalInfo.latlng[1]), api_key).then(response => {
             setWeather(response)
+        }).catch((error)=>{
+            console.log("Damn")
         })
     }, [])  
     
