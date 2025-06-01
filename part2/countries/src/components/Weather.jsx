@@ -4,7 +4,7 @@ const api_key = import.meta.env.VITE_SOME_KEY
 const RenderWeather = (props) => {
     const [weather, setWeather] = useState(null)
     useEffect(() => {
-        apisupport.getWeather(Math.ceil(props.focusedCountry.capitalInfo.latlng[0]), Math.ceil(props.focusedCountry.capitalInfo.latlng[1]), api_key).then(response => {
+        apisupport.getWeather((props.focusedCountry.capitalInfo.latlng[0]), (props.focusedCountry.capitalInfo.latlng[1]), api_key).then(response => {
             setWeather(response)
         })
     }, [])  
@@ -17,10 +17,7 @@ const RenderWeather = (props) => {
             <div>Wind speed is {weather.wind.speed}</div>
         
     </div>
-    
     }
-    
-    
 }
 
 export default RenderWeather
