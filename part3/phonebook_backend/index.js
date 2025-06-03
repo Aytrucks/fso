@@ -27,10 +27,24 @@ let phonebook = [
 ];
 
 app.get("/", (request, response) => {
-  response.send("<h1>The Phones reside here</h1>");
+  const date = new Date();
+  //console.log(date.toUTCString());
+  response.send(
+    `<h1>
+    The Phones reside here
+    </h1> 
+
+    <div>
+    There are ${phonebook.length} people in the phonebook rn
+    </div
+    
+    <div>
+    This was found at ${date.toUTCString()}
+    </div>`
+  );
 });
 
-app.get("/api/phonebook", (request, response) => {
+app.get("/api/people", (request, response) => {
   response.json(phonebook);
 });
 
