@@ -59,6 +59,13 @@ app.get("/api/people/:id", (request, response) => {
   response.json(phonenum);
 });
 
+app.delete("/api/people/:id", (request, response) => {
+  const id = request.params.id;
+  phonebook = phonebook.filter((person) => person.id !== id);
+  console.log("Successfully deleted");
+  response.status(204).end();
+});
+
 const PORT = 3002;
 app.listen(PORT, () => {
   console.log("Server running now");
