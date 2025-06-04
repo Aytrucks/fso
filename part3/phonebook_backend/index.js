@@ -66,6 +66,31 @@ app.delete("/api/people/:id", (request, response) => {
   response.status(204).end();
 });
 
+const makeId = () => {
+  return String(Math.floor(5 + Math.random() * 100));
+};
+
+app.post("/api/people", (req, res) => {
+  const note = req.body;
+  if (!(note.number && note.name)) {
+    return res.status(400).json({
+      error: "Missing number or name to show",
+    });
+  }
+  if (phonebook.find((num) => num.name === note.name)) {
+    return res.status(400).json({
+      error: "Name already in the book",
+    });
+  }
+  const person = {
+    id: makeId(),
+    name: note.name,
+    number: note.number,
+  };
+  phonebook = phonebook.concat(person);
+  res.json(person);
+});
+
 const PORT = 3002;
 app.listen(PORT, () => {
   console.log("Server running now");

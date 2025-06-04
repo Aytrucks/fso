@@ -5,3 +5,12 @@ GET http://localhost:3002/api/people/1
 
 ###
 DELETE http://localhost:3002/api/people/1
+
+###
+POST http://localhost:3002/api/people
+Content-Type: application/json
+
+{
+    
+    "number": "480-24-15215"
+}
