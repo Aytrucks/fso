@@ -37,7 +37,7 @@ app.get("/", (request, response) => {
     <div>
     There are ${phonebook.length} people in the phonebook rn
     </div
-    
+
     <div>
     This was found at ${date.toUTCString()}
     </div>`
@@ -46,6 +46,17 @@ app.get("/", (request, response) => {
 
 app.get("/api/people", (request, response) => {
   response.json(phonebook);
+});
+
+app.get("/api/people/:id", (request, response) => {
+  const id = request.params.id;
+  const phonenum = phonebook.find((num) => num.id === id);
+  if (!phonenum) {
+    return response.status(400).json({
+      error: "Person does not exist in the books",
+    });
+  }
+  response.json(phonenum);
 });
 
 const PORT = 3002;
