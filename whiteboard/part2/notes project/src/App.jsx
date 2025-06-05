@@ -57,7 +57,7 @@ const App = () => {
   //Now we implement deleting the note on frontend when it is not detected in the server
   const toggleImportanceOf = (id) =>{
     //console.log('importance of ' + id + ' needs to be tog') 
-    const dbnote_url = `http://localhost:3002/notes/${id}`
+    //const dbnote_url = `http://localhost:3002/notes/${id}`
     const initial_note = notes.find((note) => note.id === id)
     const toggled_note = {
       ...initial_note, 
