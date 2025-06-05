@@ -1,7 +1,7 @@
 import axios from "axios";
 
 //url for notes
-const url = "http://localhost:3002/notes/";
+const url = "/api/notes";
 
 //handles defining axios methods in this library and exports methods
 const getAll = () => {
