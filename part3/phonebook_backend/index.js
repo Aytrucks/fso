@@ -1,7 +1,12 @@
 const express = require("express");
+const morgan = require("morgan")
 const app = express();
 
 app.use(express.json());
+
+morgan.token('body', (req) => { return JSON.stringify(req.body) })
+
+app.use(morgan(':method :url :status :body'))
 
 let phonebook = [
   {
@@ -93,5 +98,5 @@ app.post("/api/people", (req, res) => {
 
 const PORT = 3002;
 app.listen(PORT, () => {
-  console.log("Server running now");
+  console.log(`Server running now on http://localhost:${PORT}/`);
 });
