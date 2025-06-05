@@ -1,4 +1,4 @@
-GET http://localhost:3001/api/notes/
+GET http://localhost:3001/api/notes/1
 
 ###
 POST http://localhost:3001/api/notes/
@@ -8,3 +8,8 @@ Content-Type: application/json
     "content": "Chungus gungus"
     
 }
+
+###
+GET http://localhost:3001/api/notes/
+
+###

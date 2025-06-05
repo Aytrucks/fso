@@ -1,23 +1,25 @@
 const express = require("express");
+const morgan = require("morgan");
 const app = express();
 
 app.use(express.json());
 
-const reqLogger = (request, response, next) => {
-  console.log("What method: ", request.method);
-  console.log("What Path: ", request.path);
-  console.log("Body: ", request.body);
-  console.log("-----");
-  next();
-};
+app.use(morgan("tiny"));
+// const reqLogger = (request, response, next) => {
+//   console.log("What method: ", request.method);
+//   console.log("What Path: ", request.path);
+//   console.log("Body: ", request.body);
+//   console.log("-----");
+//   next();
+// };
 
-app.use(reqLogger);
+// app.use(reqLogger);
 
-const darkEndpoint = (request, response) => {
-  response.status(404).send({ error: "Bro wtf kinda endpoint is this??" });
-};
+// const darkEndpoint = (request, response) => {
+//   response.status(404).send({ error: "Bro wtf kinda endpoint is this??" });
+// };
 
-app.use(darkEndpoint);
+// app.use(darkEndpoint);
 
 let notes = [
   {
@@ -38,7 +40,7 @@ let notes = [
 ];
 
 app.get("/", (request, response) => {
-  response.send("<h1>Hello World!!?!?!</h1>");
+  response.send("hello, world");
 });
 
 app.get("/api/notes", (request, response) => {
