@@ -13,3 +13,6 @@ Content-Type: application/json
 GET http://localhost:3001/api/notes/
 
 ###
+GET https://fso-twwa.onrender.com/api/notes/1
+
+##

@@ -4,6 +4,8 @@ const app = express();
 
 app.use(express.json());
 
+app.use(express.static("dist"));
+
 app.use(morgan("tiny"));
 // const reqLogger = (request, response, next) => {
 //   console.log("What method: ", request.method);

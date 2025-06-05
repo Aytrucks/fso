@@ -105,5 +105,5 @@ app.post("/api/people", (req, res) => {
 
 const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => {
-  console.log(`Server running now on http://localhost:${PORT}/`);
+  console.log(`Server running now on ${PORT}`);
 });
