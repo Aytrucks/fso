@@ -3,6 +3,22 @@ const app = express();
 
 app.use(express.json());
 
+const reqLogger = (request, response, next) => {
+  console.log("What method: ", request.method);
+  console.log("What Path: ", request.path);
+  console.log("Body: ", request.body);
+  console.log("-----");
+  next();
+};
+
+app.use(reqLogger);
+
+const darkEndpoint = (request, response) => {
+  response.status(404).send({ error: "Bro wtf kinda endpoint is this??" });
+};
+
+app.use(darkEndpoint);
+
 let notes = [
   {
     id: "1",
