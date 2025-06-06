@@ -28,7 +28,7 @@ const createNote = (newNote) => {
 
 const update = (id, newNote) => {
   //find url of note to be updated
-  const request = axios.put(`${url}${id}`, newNote);
+  const request = axios.put(`${url}/${id}`, newNote);
   return request.then((response) => response.data);
 };
 
