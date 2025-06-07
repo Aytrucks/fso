@@ -18,6 +18,7 @@ const App = () => {
     noteHelp.getAll()
     .then(response => {
       //console.log('promise achieved')
+      //console.log(response)
       setNotes(response)
     })
   }
@@ -73,16 +74,16 @@ const App = () => {
       setTimeout(() => {
         setErrorMsg(null)
       }, 5000)
-      //deletes the bad note
+      //deletes the bad note on frontend
       setNotes(notes.filter(n => n.id !== id))
     })
   }
 
   // Proof of rendering
-  console.log("teehee")
+  //console.log(notes)
 
   if(!notes){
-    return null
+    return <div>It's cooked</div>
   }
 
   //return the HTML and components
@@ -96,12 +97,19 @@ const App = () => {
         </button>
       </div>
       <ul>
-        {notesToShow.map(note => 
-        <Note note={note} 
+        {
+          
+          notesToShow.map(note => (
+            <Note note={note} 
         key={note.id}
         toggleImportance={()=>toggleImportanceOf(note.id)}
         />
-        )}
+          )
+        
+        )
+      
+        
+        }
       </ul>
 
       <form onSubmit = {addNote}>
