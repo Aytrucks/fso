@@ -6,7 +6,7 @@ import Notification from './components/Notification'
 
 function App() {
   const testStr = "Hello World"
-  const [persons, setPersons] = useState([])
+  const [persons, setPersons] = useState(null)
   const [newname, setNewname] = useState("")
   const [newNum, setNewNum] = useState("")
   const [message, setMessage] = useState(null)
@@ -111,6 +111,9 @@ function App() {
   
 
   //console.log(persons.map(dude => dude.name))
+  if(!Array.isArray(persons)){
+    return <div>None here</div>
+  }
   return(
     <div>
       <h2>Monkey Directory App</h2>

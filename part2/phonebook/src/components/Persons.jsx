@@ -10,7 +10,7 @@ const Person = ({dude, onDelete}) => {
 
 //Filters directory of people based on lowercasing the entire name and observing if the typed substring is within the name
 const FilterPeople = ({people, filter, onDelete}) => {
-  //console.log(people)
+  console.log(people)
   //console.log(filter)
   const fPersons = people.filter((dude) =>{
     return (dude.name.toLowerCase()).includes(filter.toLowerCase())
