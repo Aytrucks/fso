@@ -1,11 +1,11 @@
+require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
 const app = express();
+const Note = require("./models/note");
 
 app.use(express.json());
-
 app.use(express.static("dist"));
-
 app.use(morgan("tiny"));
 // const reqLogger = (request, response, next) => {
 //   console.log("What method: ", request.method);
@@ -46,7 +46,9 @@ app.get("/", (request, response) => {
 });
 
 app.get("/api/notes", (request, response) => {
-  response.json(notes);
+  Note.find({}).then((notes) => {
+    response.json(notes);
+  });
 });
 
 app.get("/api/notes/:id", (request, response) => {
