@@ -16,4 +16,13 @@ Content-Type: application/json
 }
 
 ###
+POST http://localhost:3001/api/people
+Content-Type: application/json
+
+{
+    "name": "",
+    "number": "2352"
+}
+
+###
 GET https://fso-twwa.onrender.com/api/people

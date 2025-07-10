@@ -1,11 +1,11 @@
+require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
 const app = express();
+const Entry = require("./models/entry");
 
 app.use(express.static("dist"));
-
 app.use(express.json());
-
 morgan.token("body", (req) => {
   return JSON.stringify(req.body);
 });
@@ -56,18 +56,15 @@ app.get("/", (request, response) => {
 });
 
 app.get("/api/people", (request, response) => {
-  response.json(phonebook);
+  Entry.find({}).then((nums) => {
+    response.json(nums);
+  });
 });
 
 app.get("/api/people/:id", (request, response) => {
-  const id = request.params.id;
-  const phonenum = phonebook.find((num) => num.id === id);
-  if (!phonenum) {
-    return response.status(400).json({
-      error: "Person does not exist in the books",
-    });
-  }
-  response.json(phonenum);
+  Entry.findById(request.params.id).then((num) => {
+    response.json(num);
+  });
 });
 
 app.delete("/api/people/:id", (request, response) => {
@@ -77,29 +74,22 @@ app.delete("/api/people/:id", (request, response) => {
   response.status(204).end();
 });
 
-const makeId = () => {
-  return String(Math.floor(5 + Math.random() * 100));
-};
-
 app.post("/api/people", (req, res) => {
-  const note = req.body;
-  if (!(note.number && note.name)) {
+  const body = req.body;
+  if (!body.name || !body.number) {
     return res.status(400).json({
-      error: "Missing number or name to show",
+      error: "missing name or number",
     });
   }
-  if (phonebook.find((num) => num.name === note.name)) {
-    return res.status(400).json({
-      error: "Name already in the book",
-    });
-  }
-  const person = {
-    id: makeId(),
-    name: note.name,
-    number: note.number,
-  };
-  phonebook = phonebook.concat(person);
-  res.json(person);
+
+  const entry = new Entry({
+    name: body.name,
+    number: body.number,
+  });
+
+  entry.save().then((savedEntry) => {
+    res.json(savedEntry);
+  });
 });
 
 const PORT = process.env.PORT || 3002;
