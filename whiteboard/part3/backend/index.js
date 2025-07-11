@@ -4,9 +4,10 @@ const morgan = require("morgan");
 const app = express();
 const Note = require("./models/note");
 
-app.use(express.json());
 app.use(express.static("dist"));
+app.use(express.json());
 app.use(morgan("tiny"));
+
 // const reqLogger = (request, response, next) => {
 //   console.log("What method: ", request.method);
 //   console.log("What Path: ", request.path);
@@ -51,10 +52,16 @@ app.get("/api/notes", (request, response) => {
   });
 });
 
-app.get("/api/notes/:id", (request, response) => {
-  Note.findById(request.params.id).then((note) => {
-    response.json(note);
-  });
+app.get("/api/notes/:id", (request, response, next) => {
+  Note.findById(request.params.id)
+    .then((note) => {
+      if (note) {
+        response.json(note);
+      } else {
+        response.status(404).end();
+      }
+    })
+    .catch((error) => next(error));
 });
 
 app.delete("/api/notes/:id", (request, response) => {
@@ -88,7 +95,25 @@ app.post("/api/notes", (request, response) => {
   });
 });
 
-const PORT = process.env.PORT || 3001;
+const unknownEP = (req, res) => {
+  res.status(404).send({ error: "unknown endpoint (why ru here)" });
+};
+
+app.use(unknownEP);
+
+const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => {
   console.log(`Server b runnin on that port over on ${PORT}`);
 });
+
+const errorHandler = (error, request, response, next) => {
+  console.error(error.message);
+
+  if (error.name === "CastError") {
+    return response.status(400).send({ error: "malformatted id" });
+  }
+
+  next(error);
+};
+// this has to be the last loaded middleware, also all the routes should be registered before this!
+app.use(errorHandler);
