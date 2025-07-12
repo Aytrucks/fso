@@ -64,17 +64,12 @@ app.get("/api/notes/:id", (request, response, next) => {
     .catch((error) => next(error));
 });
 
-app.delete("/api/notes/:id", (request, response) => {
-  const id = request.params.id;
-  notes = notes.filter((note) => note.id !== id);
-  response.status(204).end();
+app.delete("/api/notes/:id", (request, response, next) => {
+  Note.findByIdAndDelete(request.params.id).then(result =>{
+    response.status(204).end()
+  }).catch(error => next(error))
 });
 
-const generateId = () => {
-  const biggestId =
-    notes.length > 0 ? Math.max(...notes.map((n) => Number(n.id))) : 0;
-  return String(biggestId + 1);
-};
 
 app.post("/api/notes", (request, response) => {
   const body = request.body;

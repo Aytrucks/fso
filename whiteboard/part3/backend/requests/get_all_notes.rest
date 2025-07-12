@@ -1,11 +1,11 @@
 GET http://localhost:3002/api/notes/68700281acb7837f4dd6e4f6
 
 ###
-POST http://localhost:3002/api/notes/
+DELETE http://localhost:3002/api/notes/
 Content-Type: application/json
 
 { 
-    "content": "Chunky monk"
+    "content": "Chunky donkey"
     
 }
 
