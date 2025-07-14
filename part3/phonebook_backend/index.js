@@ -41,23 +41,64 @@ app.get("/api/health", (request, response) => {
   response.send("Server is running!");
 });
 
+app.get("/api/info", (request, response, next) => {
+  Entry.countDocuments({})
+    .then((count) => {
+      const currentTime = new Date();
+      const info = {
+        message: `Phonebook has info for ${count} people`,
+        timestamp: currentTime.toString(),
+        count: count,
+        time: currentTime,
+      };
+      response.json(info);
+    })
+    .catch(next);
+});
+
 app.get("/api/people", (request, response) => {
   Entry.find({}).then((nums) => {
     response.json(nums);
   });
 });
 
-app.get("/api/people/:id", (request, response) => {
-  Entry.findById(request.params.id).then((num) => {
-    response.json(num);
-  });
+app.get("/api/people/:id", (request, response, next) => {
+  Entry.findById(request.params.id)
+    .then((num) => {
+      if (num) {
+        response.json(num);
+      } else {
+        response.status(404).end();
+      }
+    })
+    .catch((error) => {
+      error = next(error);
+    });
 });
 
-app.delete("/api/people/:id", (request, response) => {
+app.delete("/api/people/:id", (request, response, next) => {
   const id = request.params.id;
-  phonebook = phonebook.filter((person) => person.id !== id);
-  console.log("Successfully deleted");
-  response.status(204).end();
+  Entry.findByIdAndDelete(id)
+    .then((result) => {
+      response.status(204).end();
+    })
+    .catch((error) => next(error));
+});
+
+app.put("/api/people/:id", (req, res, next) => {
+  const { name, number } = req.body;
+  Entry.findById(req.params.id)
+    .then((entry) => {
+      if (!entry) {
+        res.status(404).end();
+      }
+      entry.name = name;
+      entry.number = number;
+      return entry.save().then((newEntry) => {
+        res.json(newEntry);
+      });
+    })
+    .catch((error) => next(error));
 });
 
 app.post("/api/people", (req, res) => {
@@ -82,3 +123,13 @@ const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => {
   console.log(`Server running now on ${PORT}`);
 });
+
+const errorHandler = (error, req, res, next) => {
+  console.log(error.message);
+  if (error.name === "CastError") {
+    return res.status(400).send({ error: "messed up ID" });
+  }
+  next(error);
+};
+
+app.use(errorHandler);
