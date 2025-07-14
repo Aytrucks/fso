@@ -41,15 +41,13 @@ app.get("/api/health", (request, response) => {
   response.send("Server is running!");
 });
 
-app.get("/api/info", (request, response, next) => {
+app.get("/info", (request, response, next) => {
   Entry.countDocuments({})
     .then((count) => {
       const currentTime = new Date();
       const info = {
-        message: `Phonebook has info for ${count} people`,
-        timestamp: currentTime.toString(),
         count: count,
-        time: currentTime,
+        date: currentTime.toString(),
       };
       response.json(info);
     })
