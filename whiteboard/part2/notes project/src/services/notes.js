@@ -6,14 +6,10 @@ const url = "/api/notes";
 //handles defining axios methods in this library and exports methods
 const getAll = () => {
   const request = axios.get(url);
-  const FAKE = {
-    id: 10000,
-    content: "Fake note",
-    important: true,
-  };
+
   return request
     .then((output) => {
-      return output.data.concat(FAKE);
+      return output.data;
     })
 
     .catch((error) => {

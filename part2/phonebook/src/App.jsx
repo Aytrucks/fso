@@ -69,6 +69,13 @@ function App() {
         setTimeout(() => {
           setMessage(null)
         }, 5000)
+      }).catch(error =>{
+        console.log(error.response.data.error)
+        setMessage(`There was an issue with the entry --- ${error.response.data.error}`)
+        setType('error')
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
       })
       
       

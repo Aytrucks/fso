@@ -39,6 +39,10 @@ const App = () => {
       //console.log("response is", response)
       setNotes(notes.concat(response))
       setNewNote("Something not vulgar")
+    }).catch(error => {
+      setErrorMsg(
+        `We got an error: ${error.response.data.error}`
+      )
     })
     
   }
