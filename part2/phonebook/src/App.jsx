@@ -48,14 +48,25 @@ function App() {
             return person.id === newMonkey.id ? newMonkey : person
           }))
         }).catch((error) => {
-          setMessage(`Turns out "${preexisting.name}" isn't here anymore`)
+          if(error.response.status === 400){
+            setMessage(`${error.response.data.error}`)
+          setType('error')
+          setTimeout(() => {
+          setMessage(null)
+        }, 5000)
+
+          }
+          else{
+            setMessage(`Turns out "${preexisting.name}" isn't here anymore`)
           setType('error')
           setPersons(persons.filter((monkey) => {
             return monkey.id !== preexisting.id
           }))
           setTimeout(() => {
-          setMessage(null)
-        }, 5000)
+            setMessage(null)
+          }, 5000)
+          }
+          
         })
       }
     }
