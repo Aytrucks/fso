@@ -76,7 +76,7 @@ app.put("/api/people/:id", (req, res, next) => {
     .catch((error) => next(error));
 });
 
-app.post("/api/people", (req, res) => {
+app.post("/api/people", (req, res, next) => {
   const body = req.body;
   if (!body.name || !body.number) {
     return res.status(400).json({
@@ -89,9 +89,12 @@ app.post("/api/people", (req, res) => {
     number: body.number,
   });
 
-  entry.save().then((savedEntry) => {
-    res.json(savedEntry);
-  });
+  entry
+    .save()
+    .then((savedEntry) => {
+      res.json(savedEntry);
+    })
+    .catch((error) => next(error));
 });
 
 const PORT = process.env.PORT || 3002;
@@ -103,6 +106,9 @@ const errorHandler = (error, req, res, next) => {
   console.log(error.message);
   if (error.name === "CastError") {
     return res.status(400).send({ error: "messed up ID" });
+  }
+  if (error.name === "ValidationError") {
+    return res.status(400).json({ error: error.message });
   }
   next(error);
 };
