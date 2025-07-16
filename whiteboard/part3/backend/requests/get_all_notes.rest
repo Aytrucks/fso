@@ -1,11 +1,11 @@
-GET http://localhost:3002/api/notes/68700281acb7837f4dd6e4f6
+GET http://localhost:3002/api/notes/68700
 
 ###
-DELETE http://localhost:3002/api/notes/6871772b1b7e7c7911600a2e
+POST http://localhost:3002/api/notes/
 Content-Type: application/json
 
 { 
-    "content": "Chunky donkey"
+    "content": "Ch"
     
 }
 
@@ -16,7 +16,7 @@ GET http://localhost:3002/api/notes/
 GET https://fso-twwa.onrender.com/api/notes/1
 
 ###
-DELETE http://localhost:3002/api/notes/6871772b1b7e7c7911600a2e
+DELETE http://localhost:3002/api/notes/6871772b1b7e7c7
 
 ###
 PUT http://localhost:3002/api/notes/687173171153cbe4bd602be5

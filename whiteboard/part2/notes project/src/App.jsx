@@ -56,7 +56,8 @@ const App = () => {
   //callback function to toggle presenting non-important notes
   const notesToShow = showAll ? notes : notes.filter(note => note.important)
 
-  //callback function that toggles the value of a note's importance. We reference the specific db url of the note using its id and create a copy of the note by passing in its reference (with ...initial_note), but specifically change its importance
+  //callback function that toggles the value of a note's importance. We reference the specific db url of the note using its id 
+  // and create a copy of the note by passing in its reference (with ...initial_note), but specifically change its importance
   //We then use the put request to change the pre-existing note to the new note. We also chain .then to use the state hook and update the front end similarly
 
   //Now we implement deleting the note on frontend when it is not detected in the server
